@@ -1,0 +1,6 @@
+data/raw/*.csv
+data/processed/*.csv
+*.duckdb
+*.duckdb.wal
+*.twbr
+.DS_Store
