@@ -57,7 +57,7 @@ Year 2025, Category All, Metric Gross Profit, and all three assumptions at zero.
 ### Project links
 
 - [Published Tableau workbook](https://public.tableau.com/views/Retail_Profitability/1FinancialOverview)
-- [GitHub repository](https://github.com/dekeu/retail-profitability-self-build) — currently private.
+- [GitHub repository](https://github.com/dekeu/retail-profitability-self-build)
 - Portfolio website — coming soon.
 
 ### Notes
