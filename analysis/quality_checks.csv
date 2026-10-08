@@ -1,0 +1,11 @@
+check_name,issues
+duplicate_product_keys,0
+duplicate_sales_lines,0
+duplicate_store_keys,0
+invalid_product,0
+invalid_quantities_or_prices,0
+invalid_sales_fields,0
+invalid_stores,0
+invalid_usd_exchange_rate,0
+unmatched_products,0
+unmatched_stores,0
