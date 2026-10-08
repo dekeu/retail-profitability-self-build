@@ -4,3 +4,4 @@ data/processed/*.csv
 *.duckdb.wal
 *.twbr
 .DS_Store
+!data/processed/retail_sales_usd.csv
