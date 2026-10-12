@@ -1,68 +1,113 @@
 # Build log
 
-Last updated: 8 October 2026
+Last updated: 12 October 2026
 
-## 8 October 2026
+## Where I stopped
 
-### Where I stopped
+The three Tableau dashboards, portfolio website and processed USD dataset are published. The repository contains the SQL scripts, dashboard screenshots, analysis notes and a packaged Tableau workbook.
 
-The Tableau workbook is published and the project has been uploaded to GitHub. The SQL build and recorded desktop checks have passed. I am finishing the repository cleanup, recording the remaining checks and preparing the portfolio website.
+I am now finishing the validation records and documentation. The remaining work is to confirm that the downloadable workbook matches the published version, document the processed dataset, and add reproducible SQL for the additional findings.
+
+## 8 October 2026 — Build and publication
 
 ### What I finished
 
-- Built three dashboards: Financial Overview, Profitability Explorer and What-If Planner.
-- Adjusted the dashboard containers, controls and headers so they are readable.
-- Checked the baseline, 5% price increase and 3% unit-cost increase cases.
-- Checked that the Category filter updates the planner and that Reset assumptions returns all three inputs to zero while preserving Year and Category.
-- Fixed the category chart so it shows no change bars when all assumptions are zero.
-- Prepared the findings, scenario notes and dashboard-check log.
-- Published the Tableau workbook and uploaded the project, including its screenshots, to GitHub.
+- Built Financial Overview, Profitability Explorer and What-If Planner.
+- Added Year and Category filters, a Revenue/Gross Profit metric selector, and price, unit-cost and volume assumptions.
+- Adjusted the dashboard containers and table headers to make the views readable.
+- Fixed the category-change chart so that its bars have zero length when all assumptions are zero.
+- Prepared the findings, scenario explanation and dashboard-check notes.
+- Published the Tableau workbook and portfolio website.
+- Uploaded the dashboard screenshots, packaged workbook and processed CSV to GitHub.
 
-### What the repository review confirmed
+### Checks recorded at this stage
 
-The seven SQL build scripts completed successfully. All ten data-quality checks returned zero issues, and the exported CSV passed the row-count and financial-total checks.
+The repository review recorded successful execution of the seven SQL scripts, from `01_load_raw.sql` through `07_export.sql`. All ten data-quality checks returned zero issues. The exported CSV also passed the row-count and financial-total comparisons against the USD mart.
 
-The 2025 SQL totals and category figures agreed with `findings.md`. The saved Tableau workbook also had the scenario calculations, shared Year and Category filters, and three reset actions in place.
+The recorded desktop checks covered the baseline, a 5% price increase and a 3% unit-cost increase. They also covered the planner's Category filter and resetting all three assumptions while preserving Year and Category.
 
-The review found a few presentation items to finish: clear the selected category in the overview screenshot, remove the tooltip covering the explorer chart, and remove the internal tooltip from Reset assumptions before replacing the planner screenshot.
+The saved workbook review confirmed the scenario formulas, shared Year and Category filters, the explorer's category-selection action, and three parameter actions for Reset assumptions.
 
-### Repository cleanup
+The detailed results are recorded in [test_log.md](test_log.md).
 
-The `.gitignore` covers raw and processed CSVs, DuckDB files, Tableau recovery files and `.DS_Store`.
+## 12 October 2026 — Repository review
 
-Nine cleanup removals were prepared in GitHub Desktop. The commit and push still need to be confirmed in this log. The cleanup should keep the data files on my Mac while removing them from the repository's current tracked files.
+### What the review confirmed
 
-### What I still need to confirm or record
+The processed CSV contains 113,614 sales order lines, 20 columns and unique `LINE ID` values. Its dates run from 18 May 2016 to 31 December 2025. It includes USD transactions only.
 
-Some of these items may already be complete locally. I will update this list from the actual results.
+Recalculating the 2025 selection from this CSV reproduced the reference figures used in the findings:
 
-- [ ] Confirm that the cleanup commit has been pushed and the original data files remain available locally.
-- [ ] Confirm that the Reset tooltip is removed in the revised local and published workbook.
-- [ ] Replace the three screenshots with clear default views, without selected marks or tooltips.
+| Measure | 2025, all categories |
+|---|---:|
+| Sales order lines | 15,671 |
+| Distinct orders | 6,535 |
+| Units sold | 48,593 |
+| Revenue | $12,176,250.37 |
+| Cost of goods sold | $5,358,949.04 |
+| Gross profit | $6,817,301.33 |
+| Gross margin | 56.0% |
+
+The three committed screenshots show clear default views, without selected marks or tooltips covering the charts. The GitHub Pages deployment for the latest reviewed commit completed successfully.
+
+The remaining Tableau interactions and the final published workbook still need their observed results entered in the test log. The CSV calculations and saved workbook configuration do not replace those checks.
+
+### Data publication decision
+
+The processed CSV is intentionally published so readers can inspect the analytical dataset used by Tableau.
+
+The raw source CSVs and working DuckDB database are not included in the repository. The source archive and required files are described in [the raw-data notes](../data/raw/README.md), and the SQL scripts document the transformations.
+
+### What I still need to finish
+
+Some dashboard checks may already be complete locally. I will update the list below from the actual results and record the date and environment in the test log.
+
+- [ ] Confirm consistent number formatting across the final dashboards.
+- [ ] Confirm that hovering over Reset assumptions does not show the internal Reset Value tooltip.
 - [ ] Record the volume +10% and combined-change scenario results.
-- [ ] Record the full SQL-to-Tableau overview comparison and the remaining interaction checks.
-- [ ] Check the published workbook in a private browser window and add the results to `test_log.md`.
-- [ ] Push the revised workbook, screenshots and project notes to GitHub.
+- [ ] Record the full overview comparison, shared-filter checks, metric switch, category-selection action and repeated Reset check.
+- [ ] Confirm that the packaged workbook and Tableau Public version match.
+- [ ] Add `data/processed/README.md` with the dataset description and data dictionary.
+- [ ] Add executable reproduction instructions to the main README.
+- [ ] Run and check the additional SQL for pricing sensitivity and Computers product contribution.
+- [ ] Add the verified additional findings to `findings.md` and a shorter explanation to the website.
+- [ ] Fill in the repository's About description, website and topics.
+- [ ] Push the revised workbook, screenshots and documentation.
+- [ ] Check the updated website, download and links in a private browser window, then record the results.
 
-### The next phase
+### My next step
 
-Once the cleanup and dashboard checks are recorded, I will create `docs/index.md` and `docs/_config.yml`, make the repository accessible to portfolio readers, and publish the website through GitHub Pages.
+I will first complete the remaining entries in `test_log.md`. Then I will document the processed CSV, check the reproduction instructions and add the extra analysis.
 
-After publication, I will check the images and links in a private browser window and add the working website link to this log and the README.
+After pushing the updates, I will check the published website and downloaded workbook and record the final results here.
 
-### Default view
+## Default view for the final save
 
-Year 2025, Category All, Metric Gross Profit, and all three assumptions at zero.
+| Control | Default |
+|---|---|
+| Year | 2025 |
+| Category | All |
+| Explorer metric | Gross Profit |
+| Price change | 0 |
+| Unit-cost change | 0 |
+| Volume change | 0 |
 
-### Project links
+Before saving and taking screenshots, I will clear selected marks and move the pointer away from the charts so that no tooltip covers the view.
 
-- [Published Tableau workbook](https://public.tableau.com/views/Retail_Profitability/1FinancialOverview)
+## Project links
+
+- [Portfolio website](https://dekeu.github.io/retail-profitability-self-build/)
+- [Interactive Tableau workbook](https://public.tableau.com/views/Retail_Profitability/1FinancialOverview)
 - [GitHub repository](https://github.com/dekeu/retail-profitability-self-build)
-- Portfolio website — coming soon.
+- [Dashboard checks](test_log.md)
+- [Findings](findings.md)
+- [Scenario explanation](scenario_note.md)
 
-### Notes
+## Scope and limitations
 
-The analysis uses fictional Contoso data and USD transactions only. Scenario gains are conditional calculations, rather than observed business improvements.
+This project uses fictional Contoso data and USD transactions only, with no currency conversion.
 
-The detailed numbers and checks are in [test_log.md](test_log.md), the main observations are in [findings.md](findings.md), and the assumptions are in [scenario_note.md](scenario_note.md).
+Gross profit excludes operating expenses and taxes. The planner applies uniform changes to the selected products, keeps product mix constant and does not predict customer demand.
+
+Scenario gains describe what happens under the stated assumptions. They are not observed business improvements.
 
