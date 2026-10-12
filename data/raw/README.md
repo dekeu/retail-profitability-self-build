@@ -1,43 +1,23 @@
-## Reproducing the project
+# Raw source data
 
-To explore the finished project, open the interactive dashboard or
-download [the packaged Tableau workbook](dashboard/Retail_Profitability.twbx).
+This project uses SQLBI's fictional Contoso dataset.
 
-The processed CSV is documented in
-[data/processed/README.md](data/processed/README.md).
+[Download the source archive](https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data)
 
-### Rebuild from the source data
+Archive used: `csv-100k.7z`.
 
-Requirements: DuckDB CLI and the original Contoso CSV files.
+The SQL scripts require these files inside `data/raw/`:
 
-1. Download `csv-100k.7z` from the source release linked in
-   [data/raw/README.md](data/raw/README.md).
-2. Extract the archive and place `sales.csv`, `product.csv` and
-   `store.csv` inside `data/raw/`.
-3. Open a terminal in the repository's root folder.
+- `sales.csv`
+- `product.csv`
+- `store.csv`
 
-Create the output folder and open DuckDB:
+The original source files are kept unchanged locally. They are not
+included in this repository.
 
-```bash
-mkdir -p data/processed
-duckdb data/retail.duckdb
-```
+The processed USD dataset is available in
+[../processed/](../processed/), with its fields described in
+[the processed-data README](../processed/README.md).
 
-At the DuckDB prompt, run:
-
-```text
-.bail on
-.read sql/01_load_raw.sql
-.read sql/02_stage_sales.sql
-.read sql/03_stage_dimensions.sql
-.read sql/04_quality_checks.sql
-.read sql/05_build_mart.sql
-.read sql/06_answer_questions.sql
-.read sql/07_export.sql
-.quit
-```
-
-The quality checks should report zero issues. The export checks should
-confirm that the CSV's rows and financial amounts match the USD mart.
-
-Connect Tableau to `data/processed/retail_sales_usd.csv`.
+For the commands to rebuild the project, see
+[the main README](../../README.md#reproducing-the-project).

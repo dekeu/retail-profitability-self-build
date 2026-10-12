@@ -43,17 +43,51 @@ Detailed findings and validation records are in analysis/.
 
 ## Reproducing the project
 
-Run the SQL files in this order:
+To explore the finished project, open the interactive dashboard or
+download [the packaged Tableau workbook](dashboard/Retail_Profitability.twbx).
 
-1. sql/01_load_raw.sql
-2. sql/02_stage_sales.sql
-3. sql/03_stage_dimensions.sql
-4. sql/04_quality_checks.sql
-5. sql/05_build_mart.sql
-6. sql/06_answer_questions.sql
-7. sql/07_export.sql
+The processed CSV is documented in
+[data/processed/README.md](data/processed/README.md).
 
-Connect Tableau to data/processed/retail_sales_usd.csv.
+### Rebuild from the source data
+
+Requirements: DuckDB CLI and the original Contoso CSV files.
+
+1. Download `csv-100k.7z` from the source release linked in
+   [the raw-data notes](data/raw/README.md).
+2. Extract the archive and place `sales.csv`, `product.csv` and
+   `store.csv` inside `data/raw/`.
+3. Open a terminal in the repository's root folder.
+
+Create the output folder and open DuckDB:
+
+```bash
+mkdir -p data/processed
+duckdb data/retail.duckdb
+```
+
+At the DuckDB prompt, run:
+
+```text
+.bail on
+.read sql/01_load_raw.sql
+.read sql/02_stage_sales.sql
+.read sql/03_stage_dimensions.sql
+.read sql/04_quality_checks.sql
+.read sql/05_build_mart.sql
+.read sql/06_answer_questions.sql
+.read sql/07_export.sql
+.read sql/08_extra_analysis.sql
+.quit
+```
+
+The quality checks should report zero issues. The export checks should
+confirm that the CSV's rows and financial amounts match the USD mart.
+
+The final analysis script displays pricing scenarios, the break-even
+volume decline and Computers product concentration.
+
+Connect Tableau to `data/processed/retail_sales_usd.csv`.
 
 ## Limitations
 
