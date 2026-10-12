@@ -14,6 +14,8 @@ An input of `5` means a 5% increase. An input of `-5` means a 5% decrease.
 
 The SQL build and the desktop checks listed below were recorded as passed on 8 October. On 12 October, the published CSV was checked again and the reference numbers and scenario calculations were reviewed.
 
+The additional SQL script was also run locally on 12 October; all three result sets matched the reference calculations.
+
 The new CSV review does not establish that the latest published Tableau controls work. Those results need to be checked in the workbook and recorded separately.
 
 | Status | Meaning |
@@ -61,6 +63,30 @@ The copy used for this review was confirmed to match the current GitHub CSV.
 | COGS calculation | 0 mismatches above $0.01 against quantity × historical unit cost | Passed — CSV review |
 | Gross-profit calculation | 0 mismatches above $0.01 against revenue − COGS | Passed — CSV review |
 | 2025 reference totals | Agree with the totals below, rounded to cents | Passed — CSV review |
+
+### Additional SQL analysis — 12 October 2026
+
+I ran `.read sql/08_extra_analysis.sql` in my local DuckDB database and recorded all three result sets below. These are observed SQL outputs, separate from the Tableau checks.
+
+Selection: Year 2025, USD transactions. Pricing scenarios use all categories, a 5% price increase and unchanged unit costs.
+
+| Volume change | Observed scenario gross profit | Observed change from baseline | Result |
+|---:|---:|---:|---|
+| 0% | $7,426,113.85 | +$608,812.52 | Passed — local DuckDB |
+| −5% | $7,054,808.16 | +$237,506.83 | Passed — local DuckDB |
+| −10% | $6,683,502.46 | −$133,798.87 | Passed — local DuckDB |
+
+| Additional check | Observed result | Result |
+|---|---:|---|
+| Break-even volume decline at Price +5%, Unit cost 0% | Approximately 8.20% | Passed — local DuckDB |
+| Computers products with sales in 2025 | 592 | Passed — local DuckDB |
+| Computers gross profit | $2,460,913.02 | Passed — local DuckDB |
+| Gross profit from the ten highest-profit Computers products | $405,685.87 | Passed — local DuckDB |
+| Top-ten share of Computers gross profit | 16.49% | Passed — local DuckDB |
+
+The outputs agreed with the reference calculations. The break-even percentage is rounded to two decimal places; using exactly 8.20% need not reproduce the baseline to the cent. Products with sales are distinct product IDs in the selected year and category.
+
+These checks confirm the SQL calculations. The −5% and −10% volume cases still need their actual Tableau results recorded in section 3.
 
 ## 2. Numbers to compare with Tableau
 
