@@ -2,112 +2,60 @@
 
 Last updated: 12 October 2026
 
-## Where I stopped
+## Why I built this project
 
-The three Tableau dashboards, portfolio website and processed USD dataset are published. The repository contains the SQL scripts, dashboard screenshots, analysis notes and a packaged Tableau workbook.
+I wanted to practise turning retail sales data into a dashboard that explains profitability, rather than only showing revenue. I also wanted to explore how changes in price, cost and sales volume could affect gross profit.
 
-I am now finishing the validation records and documentation. The remaining work is to confirm that the downloadable workbook matches the published version, document the processed dataset, and add reproducible SQL for the additional findings.
+I used SQLBI's fictional Contoso dataset, prepared the data with SQL and DuckDB, and built the dashboards in Tableau Public.
 
-## 8 October 2026 — Build and publication
+## Preparing the data
 
-### What I finished
+I used the sales, product and store files to create a dataset with one row for each sales order line. I kept USD transactions only so the analysis would not mix currencies, and used the historical selling price and unit cost from each transaction.
 
-- Built Financial Overview, Profitability Explorer and What-If Planner.
-- Added Year and Category filters, a Revenue/Gross Profit metric selector, and price, unit-cost and volume assumptions.
-- Adjusted the dashboard containers and table headers to make the views readable.
-- Fixed the category-change chart so that its bars have zero length when all assumptions are zero.
-- Prepared the findings, scenario explanation and dashboard-check notes.
-- Published the Tableau workbook and portfolio website.
-- Uploaded the dashboard screenshots, packaged workbook and processed CSV to GitHub.
+The final dataset contains 113,614 rows and 20 columns. The recorded quality checks found no duplicate sales lines, unmatched product or store keys, or invalid values covered by those checks. I also compared the exported data with the financial calculations used in the dashboards.
 
-### Checks recorded at this stage
+I published the processed CSV and added a data dictionary so someone reviewing the project can understand the fields. The original source files are not included, but the README explains where to download them and how to run the SQL scripts.
 
-The repository review recorded successful execution of the seven SQL scripts, from `01_load_raw.sql` through `07_export.sql`. All ten data-quality checks returned zero issues. The exported CSV also passed the row-count and financial-total comparisons against the USD mart.
+## Building the dashboards
 
-The recorded desktop checks covered the baseline, a 5% price increase and a 3% unit-cost increase. They also covered the planner's Category filter and resetting all three assumptions while preserving Year and Category.
+I built three dashboards:
 
-The saved workbook review confirmed the scenario formulas, shared Year and Category filters, the explorer's category-selection action, and three parameter actions for Reset assumptions.
+- **Financial Overview:** revenue, gross profit, gross margin, distinct orders and monthly trends.
+- **Profitability Explorer:** category comparisons and product details, with a choice between Revenue and Gross Profit.
+- **What-If Planner:** price, unit-cost and volume assumptions, with a comparison against the baseline.
 
-The detailed results are recorded in [test_log.md](test_log.md).
+During the build, I adjusted the containers and table headers to make the views easier to read. I also fixed a category-change chart that showed a visible bar when the assumptions were zero. The desktop check after the correction showed zero-length bars at the baseline.
 
-## 12 October 2026 — Repository review
+I added a reset control to return the three scenario assumptions to zero while keeping the selected year and category.
 
-### What the review confirmed
+## Checking the analysis
 
-The processed CSV contains 113,614 sales order lines, 20 columns and unique `LINE ID` values. Its dates run from 18 May 2016 to 31 December 2025. It includes USD transactions only.
+For 2025 across all categories, the data gives revenue of **$12,176,250.37** and gross profit of **$6,817,301.33**, with a gross margin of **56.0%**.
 
-Recalculating the 2025 selection from this CSV reproduced the reference figures used in the findings:
+On 12 October, I ran the additional SQL analysis to look more closely at the pricing scenario. A 5% price increase with unchanged cost and volume gives a modelled gross-profit gain of **$608,812.52**. If volume falls by 5%, the gain falls to **$237,506.83**. With a 10% volume decline, gross profit falls below the baseline by **$133,798.87**.
 
-| Measure | 2025, all categories |
-|---|---:|
-| Sales order lines | 15,671 |
-| Distinct orders | 6,535 |
-| Units sold | 48,593 |
-| Revenue | $12,176,250.37 |
-| Cost of goods sold | $5,358,949.04 |
-| Gross profit | $6,817,301.33 |
-| Gross margin | 56.0% |
+The break-even volume decline is approximately **8.20%** under these assumptions. This helped me explain why a higher selling price does not automatically mean a better overall result.
 
-The three committed screenshots show clear default views, without selected marks or tooltips covering the charts. The GitHub Pages deployment for the latest reviewed commit completed successfully.
+I also checked product concentration within Computers. There were **592 products with sales in 2025**, and the ten highest-profit products contributed **16.49%** of the category's gross profit. Most of the category's profit therefore came from products outside the top ten.
 
-The remaining Tableau interactions and the final published workbook still need their observed results entered in the test log. The CSV calculations and saved workbook configuration do not replace those checks.
+The full results are in [findings.md](findings.md), and the checks are recorded in [test_log.md](test_log.md).
 
-### Data publication decision
+## Publishing the project
 
-The processed CSV is intentionally published so readers can inspect the analytical dataset used by Tableau.
+I published the dashboards on Tableau Public and created a GitHub Pages website with screenshots and a summary of the findings. The repository includes the SQL scripts, processed dataset, packaged Tableau workbook and analysis notes.
 
-The raw source CSVs and working DuckDB database are not included in the repository. The source archive and required files are described in [the raw-data notes](../data/raw/README.md), and the SQL scripts document the transformations.
+I updated the main README with the steps to rebuild the dataset, added the field definitions, and included the additional SQL findings in the website summary.
 
-### What I still need to finish
+The remaining live dashboard checks are kept in the test log so they are separate from the SQL results already confirmed.
 
-Some dashboard checks may already be complete locally. I will update the list below from the actual results and record the date and environment in the test log.
+## What I learned
 
-- [ ] Confirm consistent number formatting across the final dashboards.
-- [ ] Confirm that hovering over Reset assumptions does not show the internal Reset Value tooltip.
-- [ ] Record the volume +10% and combined-change scenario results.
-- [ ] Record the full overview comparison, shared-filter checks, metric switch, category-selection action and repeated Reset check.
-- [ ] Confirm that the packaged workbook and Tableau Public version match.
-- [ ] Add `data/processed/README.md` with the dataset description and data dictionary.
-- [ ] Add executable reproduction instructions to the main README.
-- [ ] Run and check the additional SQL for pricing sensitivity and Computers product contribution.
-- [ ] Add the verified additional findings to `findings.md` and a shorter explanation to the website.
-- [ ] Fill in the repository's About description, website and topics.
-- [ ] Push the revised workbook, screenshots and documentation.
-- [ ] Check the updated website, download and links in a private browser window, then record the results.
+The main lesson was to look at revenue, margin and total gross profit together. A scenario can improve the margin percentage while reducing total profit if sales volume falls enough.
 
-### My next step
-
-I will first complete the remaining entries in `test_log.md`. Then I will document the processed CSV, check the reproduction instructions and add the extra analysis.
-
-After pushing the updates, I will check the published website and downloaded workbook and record the final results here.
-
-## Default view for the final save
-
-| Control | Default |
-|---|---|
-| Year | 2025 |
-| Category | All |
-| Explorer metric | Gross Profit |
-| Price change | 0 |
-| Unit-cost change | 0 |
-| Volume change | 0 |
-
-Before saving and taking screenshots, I will clear selected marks and move the pointer away from the charts so that no tooltip covers the view.
+I also learned to make the assumptions clear. This project uses fictional data, and the planner keeps product mix constant. It does not predict customer demand, and gross profit excludes operating expenses and taxes. The scenario results show what would happen under the selected assumptions, rather than a real business improvement.
 
 ## Project links
 
 - [Portfolio website](https://dekeu.github.io/retail-profitability-self-build/)
-- [Interactive Tableau workbook](https://public.tableau.com/views/Retail_Profitability/1FinancialOverview)
+- [Interactive dashboards](https://public.tableau.com/views/Retail_Profitability/1FinancialOverview)
 - [GitHub repository](https://github.com/dekeu/retail-profitability-self-build)
-- [Dashboard checks](test_log.md)
-- [Findings](findings.md)
-- [Scenario explanation](scenario_note.md)
-
-## Scope and limitations
-
-This project uses fictional Contoso data and USD transactions only, with no currency conversion.
-
-Gross profit excludes operating expenses and taxes. The planner applies uniform changes to the selected products, keeps product mix constant and does not predict customer demand.
-
-Scenario gains describe what happens under the stated assumptions. They are not observed business improvements.
-
