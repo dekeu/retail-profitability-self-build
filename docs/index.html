@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A retail profitability portfolio by Fernanda Adekeu Alif: SQL data preparation, Tableau dashboards, and price, cost, and volume scenarios using fictional Contoso data.">
+  <title>Retail Profitability &amp; What-If Planning | Fernanda Adekeu Alif</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">BUSINESS INTELLIGENCE PORTFOLIO PROJECT</p>
+      <h1>Retail Profitability &amp;<br>What-If Planning</h1>
+      <p class="intro">I used SQL and Tableau to compare category and product profitability, then test how changes in price, unit cost, and sales volume would affect gross profit.</p>
+      <p class="project-meta">Fernanda Adekeu Alif &nbsp;·&nbsp; SQL / DuckDB / Tableau</p>
+      <p class="data-note">Fictional Contoso data &nbsp;·&nbsp; USD transactions &nbsp;·&nbsp; Featured analysis: 2025</p>
+      <nav class="hero-actions" aria-label="Project links">
+        <a class="button" href="#dashboard">Explore the dashboards</a>
+        <a class="button secondary" href="https://github.com/dekeu/retail-profitability-self-build" target="_blank" rel="noopener noreferrer">View GitHub repository</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="about-grid" aria-labelledby="about-title">
+      <div>
+        <p class="section-label">THE PROJECT</p>
+        <h2 id="about-title">From sales records to useful decisions</h2>
+        <p>I wanted to go beyond reporting sales totals. This project looks at which categories and products contribute to gross profit, and how sensitive that profit is to changes in commercial assumptions.</p>
+        <p>I prepared 113,614 sales order lines from the fictional Contoso dataset, keeping only USD transactions. Each row represents an order line. I used the historical net unit price and unit cost recorded in the transactions, then built three Tableau dashboards from the prepared data.</p>
+        <p class="muted">The prepared dataset includes multiple years. The findings and figures featured on this page use 2025, with all categories selected unless stated otherwise.</p>
+      </div>
+      <aside class="question-card" aria-labelledby="questions-title">
+        <h3 id="questions-title">Questions I explored</h3>
+        <ul>
+          <li>Which categories contribute the most gross profit?</li>
+          <li>How does profitability differ between products?</li>
+          <li>What happens if price, unit cost, or volume changes?</li>
+          <li>How much volume could fall before a price increase loses its benefit?</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section aria-labelledby="baseline-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">THE BASELINE</p>
+          <h2 id="baseline-title">2025 at a glance</h2>
+        </div>
+        <p class="muted">USD transactions · All categories</p>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="metric-value">$12.18M</span><span class="metric-label">Revenue</span></div>
+        <div class="metric"><span class="metric-value">$6.82M</span><span class="metric-label">Gross profit</span></div>
+        <div class="metric"><span class="metric-value">56.0%</span><span class="metric-label">Gross margin</span></div>
+        <div class="metric"><span class="metric-value">6,535</span><span class="metric-label">Distinct orders</span></div>
+      </div>
+      <p class="small muted">Revenue and gross profit are rounded here. Gross margin is total gross profit divided by total revenue.</p>
+    </section>
+
+    <section aria-labelledby="findings-title">
+      <p class="section-label">WHAT I FOUND</p>
+      <h2 id="findings-title">Three findings worth looking at</h2>
+      <div class="cards findings">
+        <article>
+          <p class="card-number">01 / CATEGORY PERFORMANCE</p>
+          <h3>Computers contributed 36.1% of gross profit</h3>
+          <p>The category generated $2,460,913.02 in gross profit. Its top 10 products accounted for 16.49% of the category's gross profit across 592 products with sales, so most of its contribution came from the wider product range.</p>
+        </article>
+        <article>
+          <p class="card-number">02 / PRICE SCENARIO</p>
+          <h3>A 5% price increase added $608,812.52</h3>
+          <p>With unit cost and volume unchanged, scenario gross profit rose from $6,817,301.33 to $7,426,113.85. This is a modelled result, conditional on maintaining the same volume and product mix.</p>
+        </article>
+        <article>
+          <p class="card-number">03 / VOLUME SENSITIVITY</p>
+          <h3>About an 8.2% volume decline removed that gain</h3>
+          <p>Under the same price increase, gross profit stayed above baseline with a 5% volume decline, but fell below it with a 10% decline. The break-even point was about 8.2%; it is not a forecast of customer demand.</p>
+        </article>
+      </div>
+      <p class="section-link"><a href="https://github.com/dekeu/retail-profitability-self-build/blob/main/analysis/findings.md" target="_blank" rel="noopener noreferrer">Read the full findings and calculations →</a></p>
+    </section>
+
+    <section id="dashboard" aria-labelledby="dashboard-title">
+      <p class="section-label">EXPLORE THE WORKBOOK</p>
+      <h2 id="dashboard-title">Three dashboards, one analysis</h2>
+      <p>Start with the Financial Overview, explore individual products in the Profitability Explorer, then test your own assumptions in the What-If Planner.</p>
+
+      <div class="cards dashboard-cards">
+        <article>
+          <a class="preview-link" href="images/overview.png" target="_blank" rel="noopener noreferrer" aria-label="Open the Financial Overview screenshot at full size">
+            <img src="images/overview.png" alt="Financial Overview for 2025 and all categories, showing revenue, gross profit, gross margin, orders, monthly revenue, and category gross profit." loading="lazy" width="3058" height="1922">
+          </a>
+          <div class="dashboard-card-text">
+            <h3>Financial Overview</h3>
+            <p>Revenue, gross profit, gross margin, and orders, with monthly trends and category comparisons.</p>
+            <a href="images/overview.png" target="_blank" rel="noopener noreferrer">Open full screenshot →</a>
+          </div>
+        </article>
+        <article>
+          <a class="preview-link" href="images/explorer.png" target="_blank" rel="noopener noreferrer" aria-label="Open the Profitability Explorer screenshot at full size">
+            <img src="images/explorer.png" alt="Profitability Explorer with year, category, and metric controls, a category bar chart, and a product profitability table." loading="lazy" width="2846" height="1868">
+          </a>
+          <div class="dashboard-card-text">
+            <h3>Profitability Explorer</h3>
+            <p>Compare categories and inspect product revenue, gross profit, and gross margin.</p>
+            <a href="images/explorer.png" target="_blank" rel="noopener noreferrer">Open full screenshot →</a>
+          </div>
+        </article>
+        <article>
+          <a class="preview-link" href="images/planner.png" target="_blank" rel="noopener noreferrer" aria-label="Open the What-If Planner screenshot at full size">
+            <img src="images/planner.png" alt="What-If Planner at the 2025 baseline, with price, unit cost, and volume controls set to zero and scenario gross profit of $6,817,301.33." loading="lazy" width="2922" height="1858">
+          </a>
+          <div class="dashboard-card-text">
+            <h3>What-If Planner</h3>
+            <p>Change price, unit cost, and volume assumptions, then compare scenario gross profit with the baseline.</p>
+            <a href="images/planner.png" target="_blank" rel="noopener noreferrer">Open full screenshot →</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="interactive-heading">
+        <h3>Try the interactive dashboards</h3>
+        <p class="muted">Use the workbook tabs to switch dashboards. A larger screen is best for the product table and scenario controls.</p>
+      </div>
+      <div id="dashboard-frame" class="dashboard-frame">
+        <div class="dashboard-placeholder">
+          <p class="placeholder-title">Explore the Tableau workbook</p>
+          <p>Filter the year and category, compare products, or try a different pricing scenario.</p>
+          <button id="load-dashboard" class="button primary" type="button" hidden>Load interactive dashboard</button>
+          <noscript><p>Open the workbook on Tableau Public using the link below.</p></noscript>
+        </div>
+      </div>
+      <p id="dashboard-status" class="small muted" role="status" aria-live="polite"></p>
+      <p class="dashboard-link">You can also <a href="https://public.tableau.com/views/Retail_Profitability/1FinancialOverview" target="_blank" rel="noopener noreferrer">open the workbook on Tableau Public</a>.</p>
+    </section>
+
+    <section aria-labelledby="scenario-title">
+      <p class="section-label">A CLOSER LOOK</p>
+      <h2 id="scenario-title">Why volume matters in a pricing decision</h2>
+      <p>The table below keeps price at +5% and unit cost unchanged, then varies volume. All three cases use 2025 USD transactions and keep the product mix constant.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Pricing scenario results; scroll horizontally if needed">
+        <table>
+          <caption>Baseline gross profit: $6,817,301.33</caption>
+          <thead><tr><th scope="col">Volume change</th><th scope="col">Scenario gross profit</th><th scope="col">Change vs baseline</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">0%</th><td>$7,426,113.85</td><td>+$608,812.52</td></tr>
+            <tr><th scope="row">−5%</th><td>$7,054,808.16</td><td>+$237,506.83</td></tr>
+            <tr><th scope="row">−10%</th><td>$6,683,502.46</td><td>−$133,798.87</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For me, the useful result was the trade-off: a higher price can improve gross profit, but the benefit depends on how much volume is retained. This model does not estimate how customers would actually respond.</p>
+    </section>
+
+    <section class="method-grid" aria-labelledby="method-title">
+      <div>
+        <p class="section-label">HOW I BUILT IT</p>
+        <h2 id="method-title">Preparing, checking, and presenting the data</h2>
+        <ol class="build-steps">
+          <li>Prepared the fictional Contoso tables in DuckDB and filtered the sales data to USD transactions.</li>
+          <li>Joined the required data at sales order line level, checking keys, missing values, and row counts.</li>
+          <li>Calculated revenue, COGS, gross profit, gross margin, and distinct order counts using consistent definitions.</li>
+          <li>Exported the prepared data and built the Financial Overview, Profitability Explorer, and What-If Planner in Tableau.</li>
+          <li>Compared dashboard totals with SQL reference results and checked the filters, scenario controls, and reset behaviour.</li>
+          <li>Used additional SQL analysis to examine product concentration and the volume break-even point.</li>
+        </ol>
+        <p class="section-link"><a href="https://github.com/dekeu/retail-profitability-self-build/tree/main/sql" target="_blank" rel="noopener noreferrer">View the SQL →</a> <span class="link-separator" aria-hidden="true">/</span> <a href="https://github.com/dekeu/retail-profitability-self-build#reproducing-the-project" target="_blank" rel="noopener noreferrer">Reproduce the project →</a></p>
+      </div>
+      <aside class="definitions" aria-labelledby="definitions-title">
+        <h3 id="definitions-title">Metric definitions</h3>
+        <dl>
+          <dt>Revenue</dt><dd>Quantity × historical net unit price</dd>
+          <dt>COGS</dt><dd>Quantity × historical unit cost</dd>
+          <dt>Gross profit</dt><dd>Revenue − COGS</dd>
+          <dt>Gross margin</dt><dd>Total gross profit ÷ total revenue</dd>
+          <dt>Orders</dt><dd>Distinct sales order IDs</dd>
+        </dl>
+      </aside>
+    </section>
+
+    <section aria-labelledby="limits-title">
+      <p class="section-label">CONTEXT AND LIMITS</p>
+      <h2 id="limits-title">What these results can tell us</h2>
+      <p>This is an independent portfolio project using fictional data, rather than a report of a real company's performance. I kept USD transactions only and did not convert other currencies.</p>
+      <p>The planner applies uniform price, unit cost, and volume changes to the selected products. It keeps the product mix constant and does not model customer demand or inventory constraints. Gross profit excludes operating expenses and taxes.</p>
+      <p class="section-link"><a href="https://github.com/sql-bi/Contoso-Data-Generator-V2-Data/releases/tag/ready-to-use-data" target="_blank" rel="noopener noreferrer">Original data source →</a> <span class="link-separator" aria-hidden="true">/</span> <a href="https://github.com/dekeu/retail-profitability-self-build/blob/main/data/processed/README.md" target="_blank" rel="noopener noreferrer">Prepared data documentation →</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <p>© 2026 Fernanda Adekeu Alif</p>
+      <nav aria-label="More about Fernanda">
+        <a href="https://www.linkedin.com/in/adekeu-alif/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://dekeu.github.io/olist-ecommerce-bi-portfolio/" target="_blank" rel="noopener noreferrer">Olist portfolio</a>
+        <a href="https://github.com/dekeu/retail-profitability-self-build" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script type="module">
+    const loadButton = document.getElementById('load-dashboard');
+    const frame = document.getElementById('dashboard-frame');
+    const status = document.getElementById('dashboard-status');
+    loadButton.hidden = false;
+
+    loadButton.addEventListener('click', async () => {
+      loadButton.disabled = true;
+      loadButton.textContent = 'Loading dashboard…';
+      status.textContent = 'The workbook may take a moment to load. You can also use the Tableau Public link below.';
+      try {
+        const { TableauEventType } = await import('https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.min.js');
+        const viz = document.createElement('tableau-viz');
+        viz.id = 'retail-viz';
+        viz.setAttribute('src', 'https://public.tableau.com/views/Retail_Profitability/1FinancialOverview');
+        viz.setAttribute('width', '100%');
+        viz.setAttribute('height', '900px');
+        viz.setAttribute('toolbar', 'bottom');
+        viz.addEventListener(TableauEventType.FirstInteractive, () => {
+          status.textContent = 'Workbook loaded. Use the dashboard tabs, filters, and scenario controls to explore.';
+        }, { once: true });
+        frame.replaceChildren(viz);
+        window.addEventListener('resize', () => viz.resize());
+      } catch {
+        loadButton.disabled = false;
+        loadButton.textContent = 'Try loading again';
+        status.textContent = 'The embedded workbook could not load. Please try again or open it on Tableau Public below.';
+      }
+    });
+  </script>
+</body>
+</html>
